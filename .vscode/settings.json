@@ -1,6 +1,10 @@
 {
     "robloxLsp.diagnostics.globals": [
         "getgenv",
-        "cloneref"
+        "cloneref",
+        "global"
+    ],
+    "robloxLsp.diagnostics.disable": [
+        "undefined-global"
     ]
 }
