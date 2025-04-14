@@ -1,7 +1,7 @@
 print("aim started")
 
 global = getgenv()
-print(global.Replicated)
+print(global.Replicated, "kek")
 
 local Players = global.Players
 local RunService = global.RunSerivce
