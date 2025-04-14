@@ -3,12 +3,12 @@ print("aim started")
 global = getgenv()
 print(global.Replicated, "kek")
 
-local Players = global.Players
-local RunService = global.RunSerivce
-local Workspace = global.Workspace
-local Camera = global.Camera
-local Replicated = global.Replicated
-local UserInputService = global.UserInputService
+-- local Players = global.Players
+-- local RunService = global.RunSerivce
+-- local Workspace = global.Workspace
+-- local Camera = global.Camera
+-- local Replicated = global.Replicated
+-- local UserInputService = global.UserInputService
 
 local LocalPlayer = Players.LocalPlayer
 
