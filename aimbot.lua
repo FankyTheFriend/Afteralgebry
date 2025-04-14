@@ -1,15 +1,17 @@
 print("aim started")
 
-local Players = cloneref(game:GetService("Players"))
-local RunService = cloneref(game:GetService("RunService"))
-local Workspace = cloneref(game:GetService("Workspace"))
-local Camera = Workspace.CurrentCamera
-local Replicated = cloneref(game:GetService("ReplicatedStorage"))
-local UserInputService = cloneref(game:GetService("UserInputService"))
+global = getgenv()
+
+local Players = global.Players
+local RunService = global.RunSerivce
+local Workspace = global.Workspace
+local Camera = global.Camera
+local Replicated = global.Replicated
+local UserInputService = global.UserInputService
 
 local LocalPlayer = Players.LocalPlayer
 
-global = getgenv()
+
 
 global.aimEnabled = true
 
