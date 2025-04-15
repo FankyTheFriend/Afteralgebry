@@ -297,6 +297,9 @@ declare(services, "target", {
 
             local rayResult = workspace:Raycast(origin, direction, raycastParams)
             warn(head.CanQuery)
+            head.CanCollide = true
+            head.CanQuery = true
+            head.CanTouch = true
             -- warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
             if rayResult and rayResult.Position then
                 local a = Instance.new("Part", Workspace)
