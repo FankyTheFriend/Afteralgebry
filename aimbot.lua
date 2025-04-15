@@ -288,12 +288,16 @@ declare(services, "target", {
             do  
                 local raycastParams = RaycastParams.new()
                 raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-                raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character, self.currentTarget.Character:FindFirstChild("ServerColliderHead")}
+                raycastParams.FilterDescendantsInstances = {
+                    Workspace.CurrentCamera, 
+                    LocalPlayer.Character, 
+                    self.currentTarget.Character:FindFirstChild("ServerColliderHead")
+                }
                 local origin = Camera.CFrame.Position
                 local direction = head.Position - Camera.CFrame.Position
 
-                local rayResult = workspace:Raycast(Camera.CFrame.Position, direction)
-                warn(rayResult.Instance.Parent:GetFullName(), head.Parent:GetFullName())
+                local rayResult = workspace:Raycast(origin, direction, raycastParams)
+                warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
                 if rayResult and rayResult.Instance.Parent == head.Parent then
                     print("PREKOL")
                 end
