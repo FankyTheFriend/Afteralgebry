@@ -136,8 +136,6 @@ local function createText(txt, color)
 end
 
 local function search()
-    -- ZombieSearcher.search()
-    warn(config.showGrenades)
     findGranades()
 end
 
