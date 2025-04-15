@@ -284,60 +284,8 @@ declare(services, "target", {
             )
             local screenPos = Camera:WorldToViewportPoint(predictedPos)
             mousemoverel(screenPos.X - Camera.ViewportSize.X/2 + math.random(-config.RandomJigger, config.RandomJigger), 
-                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger
-                        )
-            )
-
-
-            local raycastParams = RaycastParams.new()
-            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-            raycastParams.FilterDescendantsInstances = { Camera, LocalPlayer.Character }
-
-            local origin = Camera.CFrame.Position
-            local direction = (head.Position - origin).Unit * 1000  -- Нормализованное направление + большая длина
-
-            local rayResult = workspace:Raycast(origin, direction, raycastParams)
-
-            -- Дебаг-вывод
-            warn("Head CanQuery:", head.CanQuery)  -- Должно быть true
-            if rayResult then
-                warn("Hit Instance:", rayResult.Instance:GetFullName())
-                warn("Hit Position:", rayResult.Position)
-
-                -- Визуализация точки попадания (для отладки)
-                local hitMarker = Instance.new("Part")
-                hitMarker.Anchored = true
-                hitMarker.Position = rayResult.Position
-                hitMarker.Size = Vector3.new(0.5, 0.5, 0.5)
-                hitMarker.Color = Color3.new(1, 0, 0)  -- Красный для наглядности
-                hitMarker.CanCollide = false
-                hitMarker.CanQuery = false
-                hitMarker.Parent = workspace
-            else
-                warn("Raycast did not hit anything!")
-            end
-
-            -- Основная проверка: попал ли луч прямо в голову?
-            local hitHeadDirectly = rayResult and (rayResult.Instance == head or rayResult.Instance:IsDescendantOf(head.Parent))
-
-            -- Резервная проверка: находится ли голова между origin и точкой попадания?
-            local headBetweenCameraAndHit = false
-            if rayResult then
-                local distanceToHead = (head.Position - origin).Magnitude
-                local distanceToHit = (rayResult.Position - origin).Magnitude
-                headBetweenCameraAndHit = distanceToHead <= distanceToHit  -- Если голова ближе, чем точка попадания
-            end
-
-            -- Итоговая проверка
-            if hitHeadDirectly or headBetweenCameraAndHit then
-                mouse1press()
-                print("Попадание в голову (прямое или резервное)!")
-            else
-                mouse1release()
-                warn("Луч не попал в голову.")
-            end
+                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger))
         end
-
     end
 })
 
