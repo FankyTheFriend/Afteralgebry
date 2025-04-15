@@ -291,9 +291,10 @@ declare(services, "target", {
                 raycastParams.FilterDescendantsInstances = {
                     Workspace.CurrentCamera, 
                     LocalPlayer.Character, 
+                    self.currentTarget.Character:FindFirstChild("ServerColliderHead"),
                 }
                 local origin = Camera.CFrame.Position
-                local direction = head.Position - Camera.CFrame.Position
+                local direction = Camera.CFrame.LookVector --head.Position - Camera.CFrame.Position
 
                 local rayResult = workspace:Raycast(origin, direction, raycastParams)
                 warn(head.CanQuery)
