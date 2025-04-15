@@ -291,19 +291,19 @@ declare(services, "target", {
 
             local raycastParams = RaycastParams.new()
             raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-            raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
-            
+            raycastParams.FilterDescendantsInstances = { Camera, LocalPlayer.Character }
+
             local origin = Camera.CFrame.Position
-            local direction = (head.Position - origin).Unit * 1000  -- Увеличиваем длину луча и нормализуем направление
-            
+            local direction = (head.Position - origin).Unit * 1000  -- Нормализованное направление + большая длина
+
             local rayResult = workspace:Raycast(origin, direction, raycastParams)
-            
-            -- Дебаг-вывод для проверки
-            warn("Head CanQuery:", head.CanQuery)  -- Убедимся, что CanQuery = true
+
+            -- Дебаг-вывод
+            warn("Head CanQuery:", head.CanQuery)  -- Должно быть true
             if rayResult then
                 warn("Hit Instance:", rayResult.Instance:GetFullName())
                 warn("Hit Position:", rayResult.Position)
-                
+
                 -- Визуализация точки попадания (для отладки)
                 local hitMarker = Instance.new("Part")
                 hitMarker.Anchored = true
@@ -316,10 +316,21 @@ declare(services, "target", {
             else
                 warn("Raycast did not hit anything!")
             end
-            
-            -- Проверка на попадание в голову
-            if rayResult and (rayResult.Instance == head or rayResult.Instance:IsDescendantOf(head.Parent)) then
-                print("Попадание в голову!")
+
+            -- Основная проверка: попал ли луч прямо в голову?
+            local hitHeadDirectly = rayResult and (rayResult.Instance == head or rayResult.Instance:IsDescendantOf(head.Parent))
+
+            -- Резервная проверка: находится ли голова между origin и точкой попадания?
+            local headBetweenCameraAndHit = false
+            if rayResult then
+                local distanceToHead = (head.Position - origin).Magnitude
+                local distanceToHit = (rayResult.Position - origin).Magnitude
+                headBetweenCameraAndHit = distanceToHead <= distanceToHit  -- Если голова ближе, чем точка попадания
+            end
+
+            -- Итоговая проверка
+            if hitHeadDirectly or headBetweenCameraAndHit then
+                print("Попадание в голову (прямое или резервное)!")
             else
                 warn("Луч не попал в голову.")
             end
