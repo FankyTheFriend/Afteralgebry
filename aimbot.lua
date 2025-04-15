@@ -330,9 +330,10 @@ declare(services, "target", {
 
             -- Итоговая проверка
             if hitHeadDirectly or headBetweenCameraAndHit then
-                mouse1click()
+                mouse1press()
                 print("Попадание в голову (прямое или резервное)!")
             else
+                mouse1release()
                 warn("Луч не попал в голову.")
             end
         end
