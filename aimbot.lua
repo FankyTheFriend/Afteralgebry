@@ -285,36 +285,37 @@ declare(services, "target", {
             local screenPos = Camera:WorldToViewportPoint(predictedPos)
             mousemoverel(screenPos.X - Camera.ViewportSize.X/2 + math.random(-config.RandomJigger, config.RandomJigger), 
                          screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger))
-            do  
-                local raycastParams = RaycastParams.new()
-                raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-                raycastParams.FilterDescendantsInstances = {
-                    Workspace.CurrentCamera, 
-                    LocalPlayer.Character, 
-                    self.currentTarget.Character:FindFirstChild("ServerColliderHead"),
-                }
-                local origin = Camera.CFrame.Position
-                local direction = Camera.CFrame.LookVector --head.Position - Camera.CFrame.Position
 
-                local rayResult = workspace:Raycast(origin, direction, raycastParams)
-                warn(head.CanQuery)
-                -- warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
-                if rayResult and rayResult.Position then
-                    local a = Instance.new("Part", Workspace)
-                    a.Anchored = true
-                    a.Position = rayResult.Position
-                    a.Size = Vector3.new(1,1,1)
-                    a.CanCollide = false
-                    a.CanQuery = false
-                end
-                if rayResult then
-                    print(rayResult.Instance:GetFullName())
-                end
-                if rayResult and (rayResult.Instance.Parent == head.Parent or rayResult.Instance.Parent == self.currentTarget.Character) then
-                    print("PREKOL")
-                end
+
+            local raycastParams = RaycastParams.new()
+            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+            raycastParams.FilterDescendantsInstances = {
+                Workspace.CurrentCamera, 
+                LocalPlayer.Character, 
+                self.currentTarget.Character:FindFirstChild("ServerColliderHead"),
+            }
+            local origin = Camera.CFrame.Position
+            local direction = Camera.CFrame.LookVector.Unit * 10000
+
+            local rayResult = workspace:Raycast(origin, direction, raycastParams)
+            warn(head.CanQuery)
+            -- warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
+            if rayResult and rayResult.Position then
+                local a = Instance.new("Part", Workspace)
+                a.Anchored = true
+                a.Position = rayResult.Position
+                a.Size = Vector3.new(1,1,1)
+                a.CanCollide = false
+                a.CanQuery = false
+            end
+            if rayResult then
+                print(rayResult.Instance:GetFullName())
+            end
+            if rayResult and (rayResult.Instance.Parent == head.Parent or rayResult.Instance.Parent == self.currentTarget.Character) then
+                print("PREKOL")
             end
         end
+
     end
 })
 
