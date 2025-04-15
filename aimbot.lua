@@ -298,7 +298,7 @@ declare(services, "target", {
 
                 local rayResult = workspace:Raycast(origin, direction, raycastParams)
                 warn(head.CanQuery)
-                warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
+                -- warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
                 if rayResult and rayResult.Position then
                     local a = Instance.new("Part", Workspace)
                     a.Anchored = true
