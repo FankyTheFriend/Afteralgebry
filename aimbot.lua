@@ -298,6 +298,11 @@ declare(services, "target", {
 
                 local rayResult = workspace:Raycast(origin, direction, raycastParams)
                 warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
+                if rayResult and rayResult.Position then
+                    local a = Instance.new("Part", Workspace)
+                    a.Anchored = true
+                    a.Position = rayResult.Position
+                end
                 if rayResult and rayResult.Instance.Parent == head.Parent then
                     print("PREKOL")
                 end
