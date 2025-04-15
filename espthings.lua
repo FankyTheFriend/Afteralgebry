@@ -2,6 +2,7 @@ local global = getgenv()
 
 local RunService = cloneref(game:GetService("RunService"))
 local Workspace = cloneref(game:GetService("Workspace"))
+local npcs = Workspace.game_assets.NPCs:GetChildren()
 local Players = cloneref(game:GetService("Players"))
 
 local player = Players.LocalPlayer
@@ -70,13 +71,15 @@ end
 
 ZombieSearcher.search = function()
 
-    local npcs = Workspace.game_assets.NPCs:GetChildren()
+    if not config.showChineseZombies and not config.showTacticalZombies then
+        return
+    end
 
     for index, zombieModel in ipairs(npcs) do
         if zombieModel:IsA("Model") then
             if not objectsToShow[zombieModel] and ZombieSearcher.checkIsZombieHaveEquipment(zombieModel) then
                 
-                if (zombieModel.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 10000 then
+                if (zombieModel.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude > 10000 then
                     continue
                 end
                 
@@ -103,8 +106,6 @@ ZombieSearcher.search = function()
             end
         end
     end
-    return result
-
 end
 
 

@@ -1,6 +1,8 @@
 {
     "robloxLsp.diagnostics.globals": [
         "getgenv",
-        "cloneref"
+        "cloneref",
+        "Drawing",
+        "config"
     ]
 }
