@@ -291,7 +291,6 @@ declare(services, "target", {
                 raycastParams.FilterDescendantsInstances = {
                     Workspace.CurrentCamera, 
                     LocalPlayer.Character, 
-                    self.currentTarget.Character,
                 }
                 local origin = Camera.CFrame.Position
                 local direction = head.Position - Camera.CFrame.Position
@@ -303,8 +302,11 @@ declare(services, "target", {
                     local a = Instance.new("Part", Workspace)
                     a.Anchored = true
                     a.Position = rayResult.Position
+                    a.Size = Vector3.new(1,1,1)
+                    a.CanCollide = false
+                    a.CanQuery = false
                 end
-                if rayResult and rayResult.Instance.Parent == head.Parent then
+                if rayResult and (rayResult.Instance.Parent == head.Parent or rayResult.Instance.Parent == self.currentTarget.Character) then
                     print("PREKOL")
                 end
             end
