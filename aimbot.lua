@@ -285,6 +285,19 @@ declare(services, "target", {
             local screenPos = Camera:WorldToViewportPoint(predictedPos)
             mousemoverel(screenPos.X - Camera.ViewportSize.X/2 + math.random(-config.RandomJigger, config.RandomJigger), 
                          screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger))
+            do  
+                local raycastParams = RaycastParams.new()
+                raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+                raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+                local origin = Camera.CFrame.Position
+                local direction = head.Position - Camera.CFrame.Position
+
+                local rayResult = workspace:Raycast(Camera.CFrame.Position, direction)
+                warn(rayResult)
+                if rayResult and rayResult.Instance.Parent == head.Parent then
+                    print("PREKOL")
+                end
+            end
         end
     end
 })
