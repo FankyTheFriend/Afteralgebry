@@ -288,13 +288,12 @@ declare(services, "target", {
 
 
             local raycastParams = RaycastParams.new()
-            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+            raycastParams.FilterType = Enum.RaycastFilterType.Include
             raycastParams.FilterDescendantsInstances = {
-                Workspace.CurrentCamera, 
-                LocalPlayer.Character, 
+                head
             }
             local origin = Camera.CFrame.Position
-            local direction = Camera.CFrame.LookVector.Unit * 10000
+            local direction = head.CFrame.Position - Camera.CFrame.Position --Camera.CFrame.LookVector.Unit * 10000
 
             local rayResult = workspace:Raycast(origin, direction, raycastParams)
             warn(head.CanQuery)
