@@ -293,7 +293,7 @@ declare(services, "target", {
                 local direction = head.Position - Camera.CFrame.Position
 
                 local rayResult = workspace:Raycast(Camera.CFrame.Position, direction)
-                warn(rayResult)
+                warn(rayResult.Instance.Parent:GetFullName(), head.Parent:GetFullName())
                 if rayResult and rayResult.Instance.Parent == head.Parent then
                     print("PREKOL")
                 end
