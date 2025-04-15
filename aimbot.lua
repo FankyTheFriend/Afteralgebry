@@ -291,7 +291,7 @@ declare(services, "target", {
                 raycastParams.FilterDescendantsInstances = {
                     Workspace.CurrentCamera, 
                     LocalPlayer.Character, 
-                    self.currentTarget.Character:FindFirstChild("ServerColliderHead")
+                    self.currentTarget.Character,
                 }
                 local origin = Camera.CFrame.Position
                 local direction = head.Position - Camera.CFrame.Position
