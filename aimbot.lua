@@ -288,7 +288,7 @@ declare(services, "target", {
             do  
                 local raycastParams = RaycastParams.new()
                 raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-                raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+                raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character, self.currentTarget.Character:FindFirstChild("ServerColliderHead")}
                 local origin = Camera.CFrame.Position
                 local direction = head.Position - Camera.CFrame.Position
 
