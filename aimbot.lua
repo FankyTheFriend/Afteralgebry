@@ -284,36 +284,44 @@ declare(services, "target", {
             )
             local screenPos = Camera:WorldToViewportPoint(predictedPos)
             mousemoverel(screenPos.X - Camera.ViewportSize.X/2 + math.random(-config.RandomJigger, config.RandomJigger), 
-                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger))
+                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger
+                        )
+            )
 
 
             local raycastParams = RaycastParams.new()
-            raycastParams.FilterType = Enum.RaycastFilterType.Include
-            raycastParams.FilterDescendantsInstances = {
-                head
-            }
+            raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+            raycastParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+            
             local origin = Camera.CFrame.Position
-            local direction = (head.CFrame.Position - Camera.CFrame.Position).Unit * 10000 --Camera.CFrame.LookVector.Unit * 10000
-
+            local direction = (head.Position - origin).Unit * 1000  -- Увеличиваем длину луча и нормализуем направление
+            
             local rayResult = workspace:Raycast(origin, direction, raycastParams)
-            warn(head.CanQuery)
-            head.CanCollide = true
-            head.CanQuery = true
-            head.CanTouch = true
-            -- warn(rayResult.Instance.Parent:GetFullName(),"BRUH", head.Parent:GetFullName())
-            if rayResult and rayResult.Position then
-                local a = Instance.new("Part", Workspace)
-                a.Anchored = true
-                a.Position = rayResult.Position
-                a.Size = Vector3.new(1,1,1)
-                a.CanCollide = false
-                a.CanQuery = false
-            end
+            
+            -- Дебаг-вывод для проверки
+            warn("Head CanQuery:", head.CanQuery)  -- Убедимся, что CanQuery = true
             if rayResult then
-                print(rayResult.Instance:GetFullName())
+                warn("Hit Instance:", rayResult.Instance:GetFullName())
+                warn("Hit Position:", rayResult.Position)
+                
+                -- Визуализация точки попадания (для отладки)
+                local hitMarker = Instance.new("Part")
+                hitMarker.Anchored = true
+                hitMarker.Position = rayResult.Position
+                hitMarker.Size = Vector3.new(0.5, 0.5, 0.5)
+                hitMarker.Color = Color3.new(1, 0, 0)  -- Красный для наглядности
+                hitMarker.CanCollide = false
+                hitMarker.CanQuery = false
+                hitMarker.Parent = workspace
+            else
+                warn("Raycast did not hit anything!")
             end
-            if rayResult and (rayResult.Instance.Parent == head.Parent or rayResult.Instance.Parent == self.currentTarget.Character) then
-                print("PREKOL")
+            
+            -- Проверка на попадание в голову
+            if rayResult and (rayResult.Instance == head or rayResult.Instance:IsDescendantOf(head.Parent)) then
+                print("Попадание в голову!")
+            else
+                warn("Луч не попал в голову.")
             end
         end
 
