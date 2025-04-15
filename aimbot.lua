@@ -293,7 +293,7 @@ declare(services, "target", {
                 head
             }
             local origin = Camera.CFrame.Position
-            local direction = head.CFrame.Position - Camera.CFrame.Position --Camera.CFrame.LookVector.Unit * 10000
+            local direction = (head.CFrame.Position - Camera.CFrame.Position).Unit * 10000 --Camera.CFrame.LookVector.Unit * 10000
 
             local rayResult = workspace:Raycast(origin, direction, raycastParams)
             warn(head.CanQuery)
