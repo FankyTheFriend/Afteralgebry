@@ -306,6 +306,9 @@ declare(services, "target", {
                     a.CanCollide = false
                     a.CanQuery = false
                 end
+                if rayResult then
+                    print(rayResult.Instance:GetFullName())
+                end
                 if rayResult and (rayResult.Instance.Parent == head.Parent or rayResult.Instance.Parent == self.currentTarget.Character) then
                     print("PREKOL")
                 end
