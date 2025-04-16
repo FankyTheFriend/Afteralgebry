@@ -302,8 +302,8 @@ declare(services, "target", {
                 rayParams.FilterDescendantsInstances = {
                     Camera,
                     LocalPlayer.Character,
-                    self.currentTarget.ServerColliderHead,
-                    self.currentTarget.ServerCollider,
+                    self.currentTarget.Character.ServerColliderHead,
+                    self.currentTarget.Character.ServerCollider,
                     }
                 rayParams.RespectCanCollide = true
 
