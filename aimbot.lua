@@ -304,7 +304,7 @@ declare(services, "target", {
                     LocalPlayer.Character,
                     self.currentTarget.Character.ServerColliderHead,
                     self.currentTarget.Character.ServerCollider,
-                    }
+                }
                 rayParams.RespectCanCollide = true
 
                 local rayResult = Workspace:Raycast(origin, direction, rayParams)
