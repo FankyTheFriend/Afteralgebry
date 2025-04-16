@@ -288,6 +288,12 @@ declare(services, "target", {
             )
             
             if config.autoShootEnabled then
+                
+                head.CanCollide = true
+                head.CanQuery = true
+                head.CanTouch = true
+
+
                 local origin = Camera.CFrame.Position
                 local direction = (head.Position - Camera.CFrame.Position).Unit * 10000
                 local rayParams = RaycastParams.new()
@@ -306,7 +312,9 @@ declare(services, "target", {
                     hitPositionPart.Size = Vector3.new(0.3,0.3,0.3)
 
                     warn(rayResult.Instance:GetFullName())
-                    if rayResult.Instance:IsDescendantOf(head.Parent) or rayResult.Instance:IsDescendantOf(self.currentTarget.Character) then
+                    if rayResult.Instance:IsDescendantOf(head.Parent) 
+                    or rayResult.Instance:IsDescendantOf(self.currentTarget.Character)
+                    or (head.Position - rayResult.Position).Magnitude >= (head.Position - Camera.CFrame.Position) then
                         mouse1press()
                         task.wait()
                         mouse1release()
