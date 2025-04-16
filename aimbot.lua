@@ -299,7 +299,12 @@ declare(services, "target", {
                 local rayParams = RaycastParams.new()
 
                 rayParams.FilterType = Enum.RaycastFilterType.Exclude
-                rayParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+                rayParams.FilterDescendantsInstances = {
+                    Camera,
+                    LocalPlayer.Character,
+                    self.currentTarget.ServerColliderHead,
+                    self.currentTarget.ServerCollider,
+                    }
                 rayParams.RespectCanCollide = true
 
                 local rayResult = Workspace:Raycast(origin, direction, rayParams)
