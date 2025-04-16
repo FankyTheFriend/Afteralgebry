@@ -294,6 +294,7 @@ declare(services, "target", {
 
                 rayParams.FilterType = Enum.RaycastFilterType.Exclude
                 rayParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+                rayParams.RespectCanCollide = true
 
                 local rayResult = Workspace:Raycast(origin, direction, rayParams)
                 if rayResult and rayResult.Instance then
