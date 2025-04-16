@@ -304,6 +304,7 @@ declare(services, "target", {
                     hitPositionPart.Position = rayResult.Position
                     hitPositionPart.Size = Vector3.new(0.3,0.3,0.3)
 
+                    warn(rayResult.Instance:GetFullName())
                     if rayResult.Instance:IsDescendantOf(head.Parent) or rayResult.Instance:IsDescendantOf(self.currentTarget.Character) then
                         mouse1press()
                         task.wait()
