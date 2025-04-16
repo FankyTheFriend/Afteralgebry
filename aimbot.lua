@@ -284,7 +284,35 @@ declare(services, "target", {
             )
             local screenPos = Camera:WorldToViewportPoint(predictedPos)
             mousemoverel(screenPos.X - Camera.ViewportSize.X/2 + math.random(-config.RandomJigger, config.RandomJigger), 
-                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger))
+                         screenPos.Y - Camera.ViewportSize.Y/2 + math.random(-config.RandomJigger, config.RandomJigger)
+            )
+            
+            if config.autoShootEnabled then
+                local origin = Camera.CFrame.Position
+                local direction = (head.Position - Camera.CFrame.Position).Unit * 10000
+                local rayParams = RaycastParams.new()
+
+                rayParams.FilterType = Enum.RaycastFilterType.Exclude
+                rayParams.FilterDescendantsInstances = {Camera, LocalPlayer.Character}
+
+                local rayResult = Workspace:Raycast(origin, direction, rayParams)
+                if rayResult and rayResult.Instance then
+                    local hitPositionPart = Instance.new("Part", Workspace)
+                    hitPositionPart.CanQuery = false
+                    hitPositionPart.CanCollide = false
+                    hitPositionPart.Anchored = true
+                    hitPositionPart.Position = rayResult.Position
+                    hitPositionPart.Size = Vector3.new(0.3,0.3,0.3)
+
+                    if rayResult.Instance:IsDescendantOf(head.Parent) or rayResult.Instance:IsDescendantOf(self.currentTarget.Character) then
+                        mouse1press()
+                        task.wait()
+                        mouse1release()
+                    end
+                end
+
+            end
+            
         end
     end
 })
