@@ -314,7 +314,7 @@ declare(services, "target", {
                     warn(rayResult.Instance:GetFullName())
                     if rayResult.Instance:IsDescendantOf(head.Parent) 
                     or rayResult.Instance:IsDescendantOf(self.currentTarget.Character)
-                    or (head.Position - rayResult.Position).Magnitude >= (head.Position - Camera.CFrame.Position) then
+                    or (head.Position - rayResult.Position).Magnitude >= (head.Position - Camera.CFrame.Position).Magnitude then
                         mouse1press()
                         task.wait()
                         mouse1release()
