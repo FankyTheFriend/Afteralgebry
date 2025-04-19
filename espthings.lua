@@ -109,15 +109,35 @@ ZombieSearcher.search = function()
 end
 
 
-local function findGranades()
-    if config.showGrenades then
-        for _, child in ipairs(Workspace:GetChildren()) do
-            if not objectsToShow[child] and child.Name=="Grenade" and child:FindFirstChild("Handle") then
+local function findObjectsInWorkspace()
+
+    if not config.showGrenades and not config.showPlayerBags then
+        return
+    end
+
+    for _, child in ipairs(Workspace:GetChildren()) do
+        if objectsToShow[child] then
+            continue
+        end
+        if config.showGrenades then
+            if child.Name=="Grenade" and child:FindFirstChild("Handle") then
                 objectsToShow[child] = {
 
                     part = child.Handle,
                     text = "Grenade",
                     color = Color3.fromRGB(187, 0, 0),
+
+                }
+            end
+        end
+        if config.showPlayerBags then
+            local part = child:FindFirstChildWhichIsA("BasePart")
+            if child.Name == "Default" and part then --Meshes/Trash_bag2_Untitled.002
+                objectsToShow[child] = {
+
+                    part = part,
+                    text = "Bag",
+                    color = Color3.fromRGB(146, 134, 93),
 
                 }
             end
@@ -131,17 +151,21 @@ local function createText(txt, color)
     text.Text = txt
     text.Color = color
     text.Center = true
+    text.Font = 2
+    text.Outline = true
 
     return text
 end
 
 local function search()
     ZombieSearcher.search()
-    findGranades()
+    findObjectsInWorkspace()
 end
 
+search()
+Workspace.DescendantAdded:Connect(search)
+
 RunService.RenderStepped:Connect(function()
-    search()
 
     local toRemove = {}
     for target, object in pairs(objectsToShow) do
