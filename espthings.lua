@@ -151,6 +151,7 @@ local function createText(txt, color)
     text.Color = color
     text.Center = true
     text.Outline = true
+    text.Font = 2
 
     return text
 end
