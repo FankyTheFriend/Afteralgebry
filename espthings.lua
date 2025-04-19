@@ -131,11 +131,10 @@ local function findObjectsInWorkspace()
             end
         end
         if config.showPlayerBags then
-            local part = child:FindFirstChildWhichIsA("BasePart")
-            if child.Name == "Default" and part then --Meshes/Trash_bag2_Untitled.002
+            if (child.Name == "Default" or child:FindFirstChild("Meshes/Trash_bag2_Untitled.002")) and child:FindFirstChildWhichIsA("BasePart") then --Meshes/Trash_bag2_Untitled.002
                 objectsToShow[child] = {
 
-                    part = part,
+                    part = child:FindFirstChildWhichIsA("BasePart"),
                     text = "Bag",
                     color = Color3.fromRGB(146, 134, 93),
 
